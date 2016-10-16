@@ -2,7 +2,7 @@
 
 if isatty
     function -v PWD _bk_prompt.pwd_watcher
-        if bk describe >/dev/null ^/dev/null
+        if bk root >/dev/null ^/dev/null
             fish_prompt_addin add _bk_prompt.bk_status_seg
         else
             fish_prompt_addin rm _bk_prompt.bk_status_seg
