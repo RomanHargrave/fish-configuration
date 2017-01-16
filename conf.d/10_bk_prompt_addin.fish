@@ -8,14 +8,14 @@ if isatty
             fish_prompt_addin rm _bk_prompt.bk_status_seg
         end
     end
-end
 
-function _bk_prompt.bk_status_seg
-    set description (bk describe)
-    if string match -r '.+-dirty' $description >/dev/null
-        set_color red
-    else
-        set_color green
+    function _bk_prompt.bk_status_seg
+        set description (bk describe)
+        if string match -r '.+-dirty' $description >/dev/null
+            set_color red
+        else
+            set_color green
+        end
+        printf 'bk:%s' $description
     end
-    printf 'bk:%s' $description
 end
