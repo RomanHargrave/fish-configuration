@@ -17,15 +17,7 @@ function fish_prompt
     printf 'E%d'(set_color $_sep_colour)' : ' $_last_status
 
     # extra functions to call and insert in to the prompt
-    if set -q _fish_prompt_addins
-        for func in $_fish_prompt_addins
-            eval $func
-        end
-        
-        if set -q _fish_prompt_addins[1] 
-            printf (set_color $_sep_colour)' : '
-        end
-    end
+    __fish_breadcrumbs_print (set_color $_sep_colour)' : '
 
     # SSH
 	if set -q SSH_TTY
