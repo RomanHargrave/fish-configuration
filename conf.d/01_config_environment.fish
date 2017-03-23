@@ -22,3 +22,6 @@ conf.padd   $LFIX/bin $LFIX/games /{,s}bin /usr{,/local}/{,s}bin /usr{,/local}/g
 # Other software
 set -gx PYTHONPATH /usr/local/python
 #set -gx QT_QPA_PLATFORMTHEME qt5ct
+#
+## Chromium/Debian extension support fix
+set -x CHROMIUM_FLAGS "--enable-remote-extensions"
