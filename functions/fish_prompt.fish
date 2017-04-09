@@ -7,6 +7,11 @@ function fish_prompt
 		set -g __prompt_sorin_functions_defined
 	end
 
+    if set -q __fish_prompt_split
+        set_color cyan
+        printf ╓
+    end
+
     switch $_last_status
         case 0
             set_color green
@@ -29,6 +34,16 @@ function fish_prompt
         printf (set_color red)"#"
     end
 
+    # prompt_pwd
+    set_color cyan
+    printf (prompt_pwd) 
+
+    # split-line prompt?
+    if set -q __fish_prompt_split
+        set_color cyan
+        printf \n╙
+    end
+
     # Main
-	echo -n (set_color cyan)(prompt_pwd) (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
+	echo -n (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
 end
