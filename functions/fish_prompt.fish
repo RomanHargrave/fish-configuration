@@ -1,49 +1,57 @@
 function fish_prompt
+   set -l _last_status $status
+   set -l _sep_colour 444
+   set -l _jc (count (jobs))
 
-    set _last_status $status
-    set -l _sep_colour 444
+   if not set -q -g __prompt_sorin_functions_defined
+      set -g __prompt_sorin_functions_defined
+   end
 
-	if not set -q -g __prompt_sorin_functions_defined
-		set -g __prompt_sorin_functions_defined
-	end
+   if set -q __fish_prompt_split
+      set_color cyan
+      printf ╓
+   end
 
-    if set -q __fish_prompt_split
-        set_color cyan
-        printf ╓
-    end
+   switch $_last_status
+      case 0
+         set_color green
+      case '*'
+         set_color red
+   end
 
-    switch $_last_status
-        case 0
-            set_color green
-        case '*'
-            set_color red
-    end
+   # last command exit status
+   printf 'E%d' $_last_status
 
-    printf 'E%d'(set_color $_sep_colour)' : ' $_last_status
+   # Print active jobs, nothing if 0 jobs
+   set_color cyan
+   test $_jc -gt 0; and printf ' (%d)' $_jc
 
-    # extra functions to call and insert in to the prompt
-    __fish_breadcrumbs_print (set_color $_sep_colour)' : '
+   set_color $_sep_colour
+   printf ' : '
 
-    # SSH
-	if set -q SSH_TTY
-        printf (set_color red)(whoami)(set_color white)'@'(set_color yellow)(hostname)' '
-    end
+   # extra functions to call and insert in to the prompt
+   __fish_breadcrumbs_print (set_color $_sep_colour)' : '
 
-    # root warning
-    if [ $USER = 'root' ]
-        printf (set_color red)"#"
-    end
+   # SSH
+   if set -q SSH_TTY
+      printf (set_color red)(whoami)(set_color white)'@'(set_color yellow)(hostname)' '
+   end
 
-    # prompt_pwd
-    set_color cyan
-    printf (prompt_pwd) 
+   # root warning
+   if [ $USER = 'root' ]
+      printf (set_color red)"#"
+   end
 
-    # split-line prompt?
-    if set -q __fish_prompt_split
-        set_color cyan
-        printf \n╙
-    end
+   # prompt_pwd
+   set_color cyan
+   printf (prompt_pwd) 
 
-    # Main
-	echo -n (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
+   # split-line prompt?
+   if set -q __fish_prompt_split
+      set_color cyan
+      printf \n╙
+   end
+
+   # Main
+   echo -n (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
 end
