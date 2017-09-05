@@ -1,19 +1,66 @@
 # Hacks to improve the SpaceFM scripting experience
 
+function sfm
+   spacefm $argv
+end
+
+function ipc
+   sfm -s $argv
+end
+
+function task
+   set _do $argv[1]
+   set -e argv[1]
+   switch $_do
+      case get
+         ipc get-task $argv
+      case set
+         ipc set-task $argv
+      case run
+         ipc run-task $argv
+   end
+end
+
+function task.await -a id
+   while not task get $id status >/dev/null 2>&1
+      sleep 0.2
+   end
+end
+
+function sfm.extract_env -a _pfx
+   cat | string replace -fra '(^'$_pfx'_[^=]+)=\'(.*)\'$' '$1%#fish_sfm#%$2'
+end
+
+function sfm.env_tuple
+   string split '%#fish_sfm#%' "$argv"
+end
+
+function dialog
+   set -l _pfx $argv[1]
+   set -e argv[1]
+
+   for rline in (spacefm -g --prefix $_pfx $argv 2>/dev/null | sfm.extract_env $_pfx)
+      set pair (sfm.env_tuple $rline)
+      set -g $pair[1] $pair[2]
+   end
+end
+
+# SpaceFM environment wrangling
+
 function sfm_get_env -V fm_import
     echo $fm_import | cut -d ' ' -f2-
 end
 
 function __sfm_get_bash_array -V fm_import -a var_name
     echo "
-    $fm_import
+    $fm_import ;
     printf '%s\n' \"\${"$var_name"[@]}\"
     " | bash
 end
 
 function __sfm_get_bash_var -V fm_import -a var_name
     echo "
-    $fm_import
+    $fm_import ;
     echo \$$var_name
     " | bash
 end
@@ -48,6 +95,16 @@ function sfm_import -V fm_import
 
     # Tasks
     __sfm_import_var    fm_task_{type,name,pwd,pid,command,id,window,plugin_dir}
+
+   if set -q fm_my_task
+      function this
+         task $argv[1] $fm_my_task $argv[2..-1]
+      end
+
+      function this.await
+         task.await $fm_my_task
+      end
+   end
 end
 
 # SpaceFM function implementations
