@@ -12,19 +12,20 @@ function fish_prompt
       printf ╓
    end
 
-   switch $_last_status
-      case 0
-         set_color green
-      case '*'
-         set_color red
-   end
-
    # last command exit status
-   printf 'E%d' $_last_status
+   set _human_status OK
+	switch $_last_status
+        case 0
+            set_color green
+        case '*'
+            set _human_status (echo (errno $_last_status; or echo ?) | string split ' ')[1]
+            set_color red
+    end
+    printf '%s/%d' $_human_status $_last_status
 
    # Print active jobs, nothing if 0 jobs
    set_color cyan
-   test $_jc -gt 0; and printf ' (%d)' $_jc
+   test $_jc -gt 0; and printf ' %%%d' $_jc
 
    set_color $_sep_colour
    printf ' : '
