@@ -2,6 +2,8 @@ RomanHargrave/fish-breadcrumbs
 fisherman/dbg
 fisherman/debug
 fisherman/getopts
+Doctusoft/google-cloud-sdk-fish-completion
+evanlucas/fish-kubectl-completions
 RomanHargrave/fish-neovim
 RomanHargrave/fish-optware
 RomanHargrave/fish-q4wine
