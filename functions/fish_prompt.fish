@@ -18,7 +18,7 @@ function fish_prompt
         case 0
             set_color green
         case '*'
-            set _human_status (echo (errno $_last_status; or echo ?) | string split ' ')[1]
+            set _human_status (echo (errno $_last_status; or echo \?) | string split ' ')[1]
             set_color red
     end
     printf '%s/%d' $_human_status $_last_status
