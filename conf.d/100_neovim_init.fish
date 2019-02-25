@@ -1,0 +1,1 @@
+/home/roman/.config/fisherman/neovim/conf.d/100_neovim_init.fish

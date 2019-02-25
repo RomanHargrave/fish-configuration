@@ -1,0 +1,1 @@
+/home/roman/.config/fisherman/optware/conf.d/02_locate_user_optware.fish
