@@ -1,0 +1,1 @@
+/home/roman/.config/fisherman/debug/completions/debug.fish

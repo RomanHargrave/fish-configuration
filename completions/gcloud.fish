@@ -1,0 +1,1 @@
+/home/roman/.config/fisherman/google-cloud-sdk-fish-completion/completions/gcloud.fish

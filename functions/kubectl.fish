@@ -1,0 +1,1 @@
+/home/roman/.config/fisherman/kubectl-completions/kubectl.fish
