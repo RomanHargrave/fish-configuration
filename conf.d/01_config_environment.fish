@@ -7,7 +7,7 @@ mark_exportable CLASSPATH PKG_CONFIG_PATH GEM_PATH
 
 # Default apps
 set -gx TERM    xterm-256color
-set -gx BROWSER firefox
+set -gx BROWSER chromium
 set -gx EDITOR  vim
 
 # System resource locators
