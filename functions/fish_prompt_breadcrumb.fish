@@ -1,1 +1,0 @@
-/home/roman/.config/fisherman/breadcrumbs/functions/fish_prompt_breadcrumb.fish

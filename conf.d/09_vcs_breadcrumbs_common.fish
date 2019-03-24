@@ -1,1 +1,0 @@
-/home/roman/.config/fisherman/vcs-breadcrumbs/conf.d/09_vcs_breadcrumbs_common.fish

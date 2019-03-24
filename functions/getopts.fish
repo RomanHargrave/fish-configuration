@@ -1,1 +1,0 @@
-/home/roman/.config/fisherman/getopts/getopts.fish
