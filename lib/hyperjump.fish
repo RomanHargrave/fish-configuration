@@ -41,7 +41,7 @@ end
 # If such an entry exists, the path for the name is output and zero is returned
 # Otherwise non-zero (see grep)
 function __hj_find_nick -a nick
-    grep -Po "(?<=\Q$nick:\E).*\$" (__hj_setupdb)
+    grep -Po "(?<=^\Q$nick:\E).*\$" (__hj_setupdb)
 end 
 
 # Add an entry to the DB
